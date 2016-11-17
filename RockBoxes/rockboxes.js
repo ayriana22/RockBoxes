@@ -14,104 +14,132 @@ window.onload = function () {
 
     createjs.Ticker.on("tick", handleTick)
 
-    //container for stage objects
-    function initialize() {
+            //container for stage objects
+            function initialize() {
 
-        //create game objects
-        var mainBox, library, userScoreContainer, termsLibrary, term;
+                //create game objects
+                var mainBox, termsLibraryContainer, userScoreContainer;
 
-        // Main game box
-        mainBox = new createjs.Shape();
-        mainBox.x = 120;
-        mainBox.y = 40;
-        mainBox.graphics.setStrokeStyle(1).beginStroke("black").beginFill("red");
-        mainBox.graphics.drawRect(0, 0, 390, 440);
+                // Main game box
+                mainBox = new createjs.Shape();
+                mainBox.x = 120;
+                mainBox.y = 40;
+                mainBox.graphics.setStrokeStyle(1).beginStroke("black").beginFill("red");
+                mainBox.graphics.drawRect(0, 0, 390, 440);
 
-        // terms library container
-        function library() {
-            library = new createjs.Shape();
-            library.x = 525;
-            library.y = 40
-            library.graphics.setStrokeStyle(1).beginStroke("black").beginFill("yellow");
-            library.graphics.drawRect(0, 0, 100, 210);
+                //add terms library container
+                termsLibraryContainer = createTermsLibraryContainer();
+                termsLibraryContainer.x = 525;
+                termsLibraryContainer.y = 40;
 
-            //library of terms
-            termsLibrary = new createjs.Shape();
+                    // terms library container
+                    function createTermsLibraryContainer() {
 
-        }
+                        //library container
+                        var container = new createjs.Container();
+
+                        // library background
+
+                        var background = new createjs.Shape();
+                        background.graphics.setStrokeStyle(1).beginStroke("black").beginFill("yellow");
+                        background.graphics.drawRect(0, 0, 100, 210);
+                        container.addChild(background);
+                        
+                                function createTermLabelsContainer () {
+                                //library of terms
+                                    var container = new createjs.Container();
+
+                                    var background = new createjs.Shape();
+                                    background.graphics.setStrokeStyle(1).beginStroke("black").beginFill("green");
+                                    background.graphics.drawRect(0, 0, 30, 20);
 
 
-        function createUserScoreContainer() {
-            //user score container
-            var container = new createjs.Container();
+                                    var termShape = [];
+
+                                    var offset_x, offset_y;
+                                    var numberOfItemsPerColumn = 5;
+                                    for (var i = 0; i < 10; ++i) {
+
+                                        offset_x = Math.floor(i / numberOfItemsPerColumn);
+                                        offset_y = i % numberOfItemsPerColumn;
+
+                                        //create individual term
+                                        var term = new createjs.Shape();
+                                        term.x = 530 + (offset_x * 35);
+                                        term.y = 45 + (25 * offset_y);
+                                        term.graphics.setStrokeStyle(1).beginStroke("black").beginFill("green");
+                                        term.graphics.drawRect(0, 0, 30, 20);
+                                        term.original_x = term.x;
+                                        term.original_y = term.y;
+
+                                        term.on("pressmove", handleTermDrag);
+                                        term.on("pressup", handleTermPressUp)
+
+                                        termShape.push(term);
+                                        container.addChild(term);
+                                        container.addChild(background);
+                                        }
+
+                                    //drag functionality
+                                    function handleTermDrag(evt) {
+
+                                        evt.currentTarget.x = evt.stageX;
+                                        evt.currentTarget.y = evt.stageY;
+                                        }
+
+                                    //determine if term is outside mainbox and return to terms library container
+                                    function handleTermPressUp(evt) {
+                                        if (!mainBox.hitTest(evt.stageX - mainBox.x, evt.stageY - mainBox.y)) {
+
+                                            createjs.Tween.get(evt.currentTarget).to({ x: evt.currentTarget.original_x, y: evt.currentTarget.original_y }, 250);
+
+                                        }
+                                    }
+                        }
+                        return container;
+                    }
+
+                function createUserScoreContainer() {
+                        //user score container
+                        var container = new createjs.Container();
       
-            //user score backgound
-            var background = new createjs.Shape();
-            background.graphics.setStrokeStyle(1).beginStroke("black").beginFill("blue");
-            background.graphics.drawRect(0, 0, 100, 50);
-            container.addChild(background);
+                            //user score background
+                            var background = new createjs.Shape();
+                            background.graphics.setStrokeStyle(1).beginStroke("black").beginFill("blue");
+                            background.graphics.drawRect(0, 0, 100, 50);
+                            container.addChild(background);
 
-            //user score title
-            var scoreLabel = new createjs.Text();
-            scoreLabel.color = "white";
-            scoreLabel.text = "Score:";
-            container.addChild(scoreLabel);
+                            //user score title
+                            var scoreLabel = new createjs.Text("","15px Verdana", "");
+                            scoreLabel.color = "white";
+                            scoreLabel.text = "Score:";
+                            scoreLabel.x = 25;
+                            scoreLabel.y = 2;
+                            container.addChild(scoreLabel);
 
-            //user score score
-            var scoreText = new createjs.Text();
-            scoreText.color = "white";
-            scoreText.text = 900;
-            container.addChild(scoreText);
+                            //user score score
+                            var scoreText = new createjs.Text("","20px Verdana", "");
+                            scoreText.color = "orange";
+                            scoreText.text = 900; //this will need to change later to be a var to hold user score. 
+                            scoreText.x = 30;
+                            scoreText.y = 20;
+                            container.addChild(scoreText);
+                            return container;
+                }
+                
+                //add user score container
+                userScoreContainer = createUserScoreContainer();
+                userScoreContainer.x = 525;
+                userScoreContainer.y = 265;
 
-            return container;
-        }
+                
 
-        userScoreContainer = createUserScoreContainer();
-        userScoreContainer.x = 525;
-        userScoreContainer.y = 265;
+                // adding elements to stage
+                stage.addChild(mainBox, userScoreContainer, termsLibraryContainer);
 
-        // adding elements to stage
-        stage.addChild(mainBox, termsLibrary, userScoreContainer);
-
-        var terms = [];
-
-        var offset_x, offset_y;
-        var numberOfItemsPerColumn = 5;
-        for (var i = 0; i < 10; ++i) {
-
-            offset_x = Math.floor(i / numberOfItemsPerColumn);
-            offset_y = i % numberOfItemsPerColumn;
-
-            //create individual term
-            term = new createjs.Shape();
-            term.x = 530 + (offset_x * 35);
-            term.y = 45 + (25 * offset_y);
-            term.graphics.setStrokeStyle(1).beginStroke("black").beginFill("green");
-            term.graphics.drawRect(0, 0, 30, 20);
-            term.original_x = term.x;
-            term.original_y = term.y;
-
-            term.on("pressmove", handleTermDrag);
-            term.on("pressup", handleTermPressUp)
-
-            terms.push(term);
-            stage.addChild(term);
-        }
-
-        function handleTermDrag(evt) {
-
-            evt.currentTarget.x = evt.stageX;
-            evt.currentTarget.y = evt.stageY;
-        }
-
-        function handleTermPressUp(evt) {
-            if (!mainBox.hitTest(evt.stageX - mainBox.x, evt.stageY - mainBox.y)) {
-
-                createjs.Tween.get(evt.currentTarget).to({ x: evt.currentTarget.original_x, y: evt.currentTarget.original_y }, 250);
             }
-        }
-    }
 
+    //reset button functionality
     function reset() {
 
         stage.removeAllChildren();
