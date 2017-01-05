@@ -8,23 +8,22 @@ window.onload = function () {
             {
                 label: "Elbow",
                 path: [
-                    { x: 10, y: 20 },
-                    { x: 20, y: 20 },
-                    { x: 20, y: 10 },
-                    { x: 30, y: 10 },
-                    { x: 30, y: 30 },
-                    { x: 10, y: 30 }
+                    { x: 300, y: 0 },
+                    { x: 390, y: 0 },
+                    { x: 390, y: 200 },
+                    { x: 200, y: 200 },
+                    { x: 200, y: 100 },
+                    { x: 300, y: 100 }
                 ]
             },
             {
                 label: "Knee",
                 path: [
-                        { x: 10, y: 20 },
-                        { x: 20, y: 20 },
-                        { x: 20, y: 10 },
-                        { x: 30, y: 10 },
-                        { x: 30, y: 30 },
-                        { x: 10, y: 30 }
+                        { x: 100, y: 0 },
+                        { x: 300, y: 0 },
+                        { x: 300, y: 100 },
+                        { x: 200, y: 100 },
+                        { x: 200, y: 200 }
                 ]
             },
             {
@@ -39,18 +38,7 @@ window.onload = function () {
                 ]
             },
             {
-                label: "Butt",
-                path: [
-                        { x: 10, y: 20 },
-                        { x: 20, y: 20 },
-                        { x: 20, y: 10 },
-                        { x: 30, y: 10 },
-                        { x: 30, y: 30 },
-                        { x: 10, y: 30 }
-                ]
-            },
-            {
-                label: "Arm",
+                label: "Neck",
                 path: [
                         { x: 10, y: 20 },
                         { x: 20, y: 20 },
@@ -72,6 +60,9 @@ window.onload = function () {
 
     function handleTick() {
         stage.update();
+
+        // update the user's score label
+        // eg: theUserScoreText.text = theUsersScore;
     }
 
     createjs.Ticker.on("tick", handleTick)
@@ -80,7 +71,7 @@ window.onload = function () {
     function initialize() {
 
         //create game objects
-        var mainBox, termsLibraryContainer, userScoreContainer, layer, rectangle;
+        var termsLibraryContainer, userScoreContainer, layer, rectangle;
 
         var mainBoxContainer = createMainBoxContainer();
 
@@ -128,25 +119,46 @@ window.onload = function () {
             // add the shapes here to the container
             // where there is one shape per term using the path property on each term
 
-            var rectangle = new createjs.Shape();
-            rectangle.graphics.beginStroke('#000');
-            rectangle.graphics.beginFill('#00FF00');
-            rectangle.graphics.moveTo(50, 0)
-                .lineTo(0, 100)
-                .lineTo(100, 100)
-                .lineTo(50, 50)
-                .lineTo(100, 0);
-            rectangle.x = 20;
-            rectangle.y = 150;
+            //var rectangle = new createjs.Shape();
+            //rectangle.graphics.beginStroke('#000');
+            //rectangle.graphics.beginFill('#00FF00');
+            //rectangle.graphics.moveTo(50, 0)
+            //    .lineTo(50, 50)
+            //    .lineTo(100, 50)
+            //    .lineTo(100, 0)
+            //    .lineTo(50, 0)
+            //    .closePath;
 
-            container.addChild(rectangle);
+            //rectangle.x = 20;
+            //rectangle.y = 150;
+
+            //container.addChild(rectangle);
+
+            for (var i = 0; i < gameData.terms.length; ++i) {
+                var termShape = new createjs.Shape();
+
+                termShape.graphics.beginStroke('#000');
+                termShape.graphics.beginFill('#000000');
+                termShape.graphics.moveTo(gameData.terms[i].path[0].x, gameData.terms[i].path[0].y);
+                termShape.alpha = 0;
+                for (var j = 1; j < gameData.terms[i].path.length; ++j) {
+
+                    termShape.graphics.lineTo(gameData.terms[i].path[j].x, gameData.terms[i].path[j].y);
+
+                }
+                termShape.graphics.closePath();
+
+                gameData.terms[i].target = termShape;
+
+                container.addChild(termShape);
+            }
 
             /*
 
             for each term in the gameData.terms
                 draw the shape by:
                     MoveTo the first point
-                    Lineto all subsequent poins
+                    Lineto all subsequent points
                     then ClosePath when done
                 add the shape to the container
 
@@ -184,6 +196,8 @@ window.onload = function () {
                 termContainer.original_x = termContainer.x;
                 termContainer.original_y = termContainer.y;
 
+                gameData.terms[i].termContainer = termContainer;
+                termContainer.termData = gameData.terms[i];
 
                 container.addChild(termContainer);
             }
@@ -241,11 +255,18 @@ window.onload = function () {
             function handleTermPressUp(evt) {
                 mouseDragPosition = null;
 
-                if (!mainBox.hitTest(evt.stageX - mainBox.x, evt.stageY - mainBox.y)) {
+                var theTermContainer = evt.currentTarget;
+                var theCorrectTarget = evt.currentTarget.termData.target;
 
-                    createjs.Tween.get(evt.currentTarget).to({ x: evt.currentTarget.original_x, y: evt.currentTarget.original_y }, 250);
+                var localMouseCoords = theCorrectTarget.globalToLocal(evt.stageX, evt.stageY);
 
+                if (theCorrectTarget.hitTest(localMouseCoords.x, localMouseCoords.y)) {
+                    alert("you rock!@");
                 }
+                else {
+                    createjs.Tween.get(evt.currentTarget).to({ x: evt.currentTarget.original_x, y: evt.currentTarget.original_y }, 250);
+                }
+
             }
 
             return container;
