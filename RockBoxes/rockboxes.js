@@ -82,33 +82,21 @@ window.onload = function () {
         //create game objects
         var mainBox, termsLibraryContainer, userScoreContainer, layer, rectangle;
 
-        // Main game box
-        mainBox = new createjs.Shape();
-        mainBox.x = 120;
-        mainBox.y = 40;
-        mainBox.graphics.setStrokeStyle(1).beginStroke("black").beginFill("purple");
-        mainBox.graphics.drawRect(0, 0, 390, 440);
+        var mainBoxContainer = createMainBoxContainer();
+
+        mainBoxContainer.x = 120;
+        mainBoxContainer.y = 40;
 
         //create main game box layer to draw paths on and eventually upload image to maybe, or behind it. 
         //Don't forget to add to stage further down in script!
+
         layer = new createjs.Shape();
         layer.x = 120;
         layer.y = 40;
         layer.graphics.setStrokeStyle(1).beginFill("transparent");
         layer.graphics.drawRect(0, 0, 390, 440);
 
-        //adding a test target shape
-        //START HERE 
-        rectangle = new createjs.Shape();
-        rectangle.graphics.beginStroke('#000');
-        rectangle.beginFill('#00FF00');
-        rectangle.moveTo(50, 0)
-            .lineTo(0, 100)
-            .lineTo(100, 100)
-            .lineTo(50, 50)
-            .lineTo(100, 0);
-        rectangle.x = 20;
-        rectangle.y = 150;
+        
   
 
 
@@ -123,9 +111,50 @@ window.onload = function () {
         userScoreContainer.x = 525;
         userScoreContainer.y = 265;
 
-
         // adding elements to stage
-        stage.addChild(mainBox, userScoreContainer, termsLibraryContainer, layer, rectangle);
+        stage.addChild(mainBoxContainer, userScoreContainer, termsLibraryContainer);
+
+        function createMainBoxContainer() {
+
+            var container = new createjs.Container();
+
+            var background = new createjs.Shape();
+            background.graphics.setStrokeStyle(1).beginStroke("black").beginFill("purple");
+            background.graphics.drawRect(0, 0, 390, 440);
+
+            container.addChild(background);
+
+
+            // add the shapes here to the container
+            // where there is one shape per term using the path property on each term
+
+            var rectangle = new createjs.Shape();
+            rectangle.graphics.beginStroke('#000');
+            rectangle.graphics.beginFill('#00FF00');
+            rectangle.graphics.moveTo(50, 0)
+                .lineTo(0, 100)
+                .lineTo(100, 100)
+                .lineTo(50, 50)
+                .lineTo(100, 0);
+            rectangle.x = 20;
+            rectangle.y = 150;
+
+            container.addChild(rectangle);
+
+            /*
+
+            for each term in the gameData.terms
+                draw the shape by:
+                    MoveTo the first point
+                    Lineto all subsequent poins
+                    then ClosePath when done
+                add the shape to the container
+
+            */
+
+
+            return container;
+        }
 
         // terms library container
         function createTermsLibraryContainer() {
