@@ -87,8 +87,8 @@ window.onload = function () {
         layer.graphics.setStrokeStyle(1).beginFill("transparent");
         layer.graphics.drawRect(0, 0, 390, 440);
 
-        
-  
+
+
 
 
         //add terms library container
@@ -154,14 +154,12 @@ window.onload = function () {
             }
 
             /*
-
             for each term in the gameData.terms
                 draw the shape by:
                     MoveTo the first point
                     Lineto all subsequent points
                     then ClosePath when done
                 add the shape to the container
-
             */
 
 
