@@ -269,7 +269,7 @@ window.onload = function () {
 
             return container;
         }
-
+        //Game Scores
         function createUserScoreContainer() {
             //user score container
             var container = new createjs.Container();
@@ -291,24 +291,56 @@ window.onload = function () {
             //user score score
             var scoreText = new createjs.Text("", "20px Verdana", "");
             scoreText.color = "orange";
-            scoreText.text = 900; //this will need to change later to be a var to hold user score. 
+            scoreText.text = "";
             scoreText.x = 30;
             scoreText.y = 20;
             container.addChild(scoreText);
             return container;
+
+            //Game score calculations - each correct answer gains the user 10 points. 
+    
+            var score = 0;
+            //create var to hold score
+            //calculate user score starting score + correct answer = current score
+
+            function updateScore() {
+                if (theCorrectTarget = true) {
+                    addScore = score + 10;
+                    scoreText.text = (score(scoreText.text) + Number(value)).toString(); 
+
+                    /* This is another idea for a score-keeping mechanism.
+                    // Score
+     
+                    playerScore = new Text('0', 'bold 20px Arial', '#A3FF24');
+                    playerScore.x = 211;
+                    playerScore.y = 20;
+     
+                    cpuScore = new Text('0', 'bold 20px Arial', '#A3FF24');
+                    cpuScore.x = 262;
+                    cpuScore.y = 20;
+     
+                    stage.addChild(playerScore);
+                    stage.update();
+                    */
+
+
+                }
+
+
+
+            }
+   
+    
         }
 
 
 
+        //reset button functionality
+        function reset() {
+
+            stage.removeAllChildren();
+            initialize();
+
+        }
+
     }
-
-    //reset button functionality
-    function reset() {
-
-        stage.removeAllChildren();
-        initialize();
-
-    }
-
-    initialize();
-}
