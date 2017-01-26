@@ -7,6 +7,7 @@ window.onload = function () {
         terms: [
             {
                 label: "Elbow",
+                color: "blue",
                 path: [
                     { x: 300, y: 0 },
                     { x: 390, y: 0 },
@@ -18,6 +19,7 @@ window.onload = function () {
             },
             {
                 label: "Knee",
+                color: "red",
                 path: [
                         { x: 100, y: 0 },
                         { x: 300, y: 0 },
@@ -28,6 +30,7 @@ window.onload = function () {
             },
             {
                 label: "Face",
+                color: "yellow",
                 path: [
                         { x: 10, y: 20 },
                         { x: 20, y: 20 },
@@ -138,7 +141,7 @@ window.onload = function () {
                 var termShape = new createjs.Shape();
 
                 termShape.graphics.beginStroke('#000');
-                termShape.graphics.beginFill('#000000');
+                termShape.graphics.beginFill(gameData.terms[i].color);
                 termShape.graphics.moveTo(gameData.terms[i].path[0].x, gameData.terms[i].path[0].y);
                 termShape.alpha = 0;
                 for (var j = 1; j < gameData.terms[i].path.length; ++j) {
@@ -298,7 +301,7 @@ window.onload = function () {
             return container;
 
             //Game score calculations - each correct answer gains the user 10 points. 
-    
+
             var score = 0;
             //create var to hold score
             //calculate user score starting score + correct answer = current score
@@ -306,7 +309,7 @@ window.onload = function () {
             function updateScore() {
                 if (theCorrectTarget = true) {
                     addScore = score + 10;
-                    scoreText.text = (score(scoreText.text) + Number(value)).toString(); 
+                    scoreText.text = (score(scoreText.text) + Number(value)).toString();
 
                     /* This is another idea for a score-keeping mechanism.
                     // Score
@@ -329,8 +332,8 @@ window.onload = function () {
 
 
             }
-   
-    
+
+
         }
 
 
@@ -343,4 +346,9 @@ window.onload = function () {
 
         }
 
+        
+
     }
+
+    initialize();
+}
