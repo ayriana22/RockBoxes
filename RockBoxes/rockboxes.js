@@ -298,13 +298,17 @@ window.onload = function () {
             scoreText.x = 30;
             scoreText.y = 20;
             container.addChild(scoreText);
-            return container;
-
             //Game score calculations - each correct answer gains the user 10 points. 
 
             var score = 0;
             //create var to hold score
             //calculate user score starting score + correct answer = current score
+
+
+            return container;
+
+            
+            
 
             function updateScore() {
                 if (theCorrectTarget = true) {
