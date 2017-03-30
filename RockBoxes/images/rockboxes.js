@@ -3,11 +3,15 @@
 window.onload = function () {
 
     // assume this was created by an external builder being passed into this script
+
+   
+
     var gameData = {
         terms: [
             {
                 label: "Elbow",
                 color: "blue",
+                attempts:'',
                 path: [
                     { x: 300, y: 0 },
                     { x: 390, y: 0 },
@@ -20,6 +24,7 @@ window.onload = function () {
             {
                 label: "Knee",
                 color: "red",
+                attempts: '',
                 path: [
                         { x: 100, y: 0 },
                         { x: 300, y: 0 },
@@ -31,6 +36,7 @@ window.onload = function () {
             {
                 label: "Face",
                 color: "yellow",
+                attempts: '',
                 path: [
                         { x: 10, y: 20 },
                         { x: 20, y: 20 },
@@ -42,6 +48,8 @@ window.onload = function () {
             },
             {
                 label: "Neck",
+                color:"pink",
+                attempts: '',
                 path: [
                         { x: 10, y: 20 },
                         { x: 20, y: 20 },
@@ -90,15 +98,10 @@ window.onload = function () {
         layer.graphics.setStrokeStyle(1).beginFill("transparent");
         layer.graphics.drawRect(0, 0, 390, 440);
 
-
-
-
-
         //add terms library container
         termsLibraryContainer = createTermsLibraryContainer();
         termsLibraryContainer.x = 525;
         termsLibraryContainer.y = 40;
-
 
         //add user score container
         userScoreContainer = createUserScoreContainer();
@@ -136,6 +139,8 @@ window.onload = function () {
             //rectangle.y = 150;
 
             //container.addChild(rectangle);
+              
+
 
             for (var i = 0; i < gameData.terms.length; ++i) {
                 var termShape = new createjs.Shape();
@@ -164,7 +169,6 @@ window.onload = function () {
                     then ClosePath when done
                 add the shape to the container
             */
-
 
             return container;
         }
@@ -202,7 +206,6 @@ window.onload = function () {
 
                 container.addChild(termContainer);
             }
-
 
             return container;
         }
@@ -245,13 +248,11 @@ window.onload = function () {
                     evt.currentTarget.x += deltaX;
                     evt.currentTarget.y += deltaY;
                 }
-
                 mouseDragPosition = {
                     x: evt.stageX,
                     y: evt.stageY
                 };
             }
-
             //determine if term is outside mainbox and return to terms library container
             function handleTermPressUp(evt) {
                 mouseDragPosition = null;
@@ -267,9 +268,7 @@ window.onload = function () {
                 else {
                     createjs.Tween.get(evt.currentTarget).to({ x: evt.currentTarget.original_x, y: evt.currentTarget.original_y }, 250);
                 }
-
             }
-
             return container;
         }
         //Game Scores
@@ -304,11 +303,7 @@ window.onload = function () {
             //create var to hold score
             //calculate user score starting score + correct answer = current score
 
-
             return container;
-
-            
-            
 
             function updateScore() {
                 if (theCorrectTarget = true) {
@@ -329,29 +324,15 @@ window.onload = function () {
                     stage.addChild(playerScore);
                     stage.update();
                     */
-
-
                 }
-
-
-
             }
-
-
         }
-
-
-
         //reset button functionality
         function reset() {
 
             stage.removeAllChildren();
             initialize();
-
         }
-
-        
-
     }
 
     initialize();

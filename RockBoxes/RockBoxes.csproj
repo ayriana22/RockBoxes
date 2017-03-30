@@ -94,17 +94,59 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="createjs-2015.11.26.min.js" />
+    <Content Include="images\03af3cfe8180dd5a5acf44df1d0c7e5f.jpg" />
+    <Content Include="bin\Microsoft.AI.Agent.Intercept.dll" />
+    <Content Include="bin\Microsoft.AI.DependencyCollector.dll" />
+    <Content Include="bin\Microsoft.AI.DependencyCollector.xml" />
+    <Content Include="bin\Microsoft.AI.PerfCounterCollector.dll" />
+    <Content Include="bin\Microsoft.AI.ServerTelemetryChannel.dll" />
+    <Content Include="bin\Microsoft.AI.ServerTelemetryChannel.xml" />
+    <Content Include="bin\Microsoft.AI.Web.dll" />
+    <Content Include="bin\Microsoft.AI.Web.xml" />
+    <Content Include="bin\Microsoft.AI.WindowsServer.dll" />
+    <Content Include="bin\Microsoft.AI.WindowsServer.xml" />
+    <Content Include="bin\Microsoft.ApplicationInsights.dll" />
+    <Content Include="bin\Microsoft.ApplicationInsights.xml" />
+    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
+    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml" />
+    <Content Include="bin\RockBoxes.dll" />
+    <Content Include="bin\RockBoxes.pdb" />
+    <Content Include="bin\roslyn\csc.exe" />
+    <Content Include="bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.dll" />
+    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll" />
+    <Content Include="bin\roslyn\System.Collections.Immutable.dll" />
+    <Content Include="bin\roslyn\System.Reflection.Metadata.dll" />
+    <Content Include="bin\roslyn\vbc.exe" />
+    <Content Include="bin\roslyn\VBCSCompiler.exe" />
+    <Content Include="images\closeup of pickups.png" />
+    <Content Include="images\createjs-2015.11.26.min.js" />
+    <Content Include="images\download %281%29.png" />
+    <Content Include="images\download.png" />
     <Content Include="game.css" />
-    <Content Include="guitars.jpg" />
-    <Content Include="jquery-3.1.1.js" />
-    <Content Include="rockboxes.js" />
-    <Content Include="rose.jpg" />
+    <Content Include="images\guitars.jpg" />
+    <Content Include="images\jquery-3.1.1.js" />
+    <Content Include="images\leftguitar.jpg" />
+    <Content Include="images\reference.png" />
+    <Content Include="images\rockboxes.js" />
+    <Content Include="images\rose.jpg" />
     <Content Include="index.html" />
+    <Content Include="images\TGR158_gear_dps_gib2-970-80.jpg" />
+    <Content Include="images\violet_burst_vert.png" />
     <Content Include="web.config" />
+    <Content Include="bin\RockBoxes.dll.config" />
+    <Content Include="bin\roslyn\Microsoft.CSharp.Core.targets" />
+    <Content Include="bin\roslyn\Microsoft.VisualBasic.Core.targets" />
+    <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
+    <Content Include="images\guitar_and_amp [Recovered].ai" />
+    <Content Include="images\guitar_and_amp.ai" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
